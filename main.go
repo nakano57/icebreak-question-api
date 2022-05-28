@@ -16,6 +16,17 @@ import (
 
 var token string
 
+type Question struct {
+	Question string
+	Choices  Choices
+	Category []string
+}
+
+type Choices struct {
+	First  string
+	Second string
+}
+
 func getQuestions(w http.ResponseWriter, r *http.Request) {
 	//kintone
 	app := &kintone.App{
@@ -24,17 +35,22 @@ func getQuestions(w http.ResponseWriter, r *http.Request) {
 		AppId:    2,
 	}
 
-	fields := []string{"question", "category", "first", "second"}
+	fields := []string{"question", "category", "choice", "first", "second"}
 	records, err := app.GetRecords(fields, "isUse in (\"使用\")")
 	if err != nil {
 		log.Fatal(err)
 	}
 	n := rand.Intn(len(records))
 	question := records[n]
-	fmt.Println(question.Fields)
+
+	q := new(Question)
+	q.Question = string(question.Fields["question"].(kintone.SingleLineTextField))
+	q.Category = question.Fields["category"].(kintone.MultiSelectField)
+	q.Choices.First = string(question.Fields["first"].(kintone.SingleLineTextField))
+	q.Choices.Second = string(question.Fields["second"].(kintone.SingleLineTextField))
 
 	w.Header().Set("Content-Type", "application/json;charset=UTF-8")
-	json.NewEncoder(w).Encode(records[n])
+	json.NewEncoder(w).Encode(q)
 }
 
 func main() {
