@@ -1,0 +1,54 @@
+2022/05/28 19:38:16 http: panic serving [::1]:62645: json: cannot unmarshal object into Go struct field Question.records.question of type string
+goroutine 19 [running]:
+net/http.(*conn).serve.func1(0xc0000bd540)
+        /usr/local/Cellar/go/1.15.5/libexec/src/net/http/server.go:1801 +0x147
+panic(0x12e8060, 0xc0003f1270)
+        /usr/local/Cellar/go/1.15.5/libexec/src/runtime/panic.go:975 +0x47a
+main.getQuestions(0x13a7320, 0xc0001120e0, 0xc00011c200)
+        /Users/nh/Documents/biprogy/icebreak-api/main.go:64 +0x75e
+net/http.HandlerFunc.ServeHTTP(0x1359ac8, 0x13a7320, 0xc0001120e0, 0xc00011c200)
+        /usr/local/Cellar/go/1.15.5/libexec/src/net/http/server.go:2042 +0x44
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc00010e000, 0x13a7320, 0xc0001120e0, 0xc00011c000)
+        /Users/nh/Documents/go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0xd3
+net/http.serverHandler.ServeHTTP(0xc000112000, 0x13a7320, 0xc0001120e0, 0xc00011c000)
+        /usr/local/Cellar/go/1.15.5/libexec/src/net/http/server.go:2843 +0xa3
+net/http.(*conn).serve(0xc0000bd540, 0x13a78e0, 0xc0000cc4c0)
+        /usr/local/Cellar/go/1.15.5/libexec/src/net/http/server.go:1925 +0x8ad
+created by net/http.(*Server).Serve
+        /usr/local/Cellar/go/1.15.5/libexec/src/net/http/server.go:2969 +0x36c
+2022/05/28 19:38:16 http: panic serving [::1]:62647: json: cannot unmarshal object into Go struct field Question.records.question of type string
+goroutine 25 [running]:
+net/http.(*conn).serve.func1(0xc0000bd680)
+        /usr/local/Cellar/go/1.15.5/libexec/src/net/http/server.go:1801 +0x147
+panic(0x12e8060, 0xc0003f1590)
+        /usr/local/Cellar/go/1.15.5/libexec/src/runtime/panic.go:975 +0x47a
+main.getQuestions(0x13a7320, 0xc0003dae00, 0xc0001b8400)
+        /Users/nh/Documents/biprogy/icebreak-api/main.go:64 +0x75e
+net/http.HandlerFunc.ServeHTTP(0x1359ac8, 0x13a7320, 0xc0003dae00, 0xc0001b8400)
+        /usr/local/Cellar/go/1.15.5/libexec/src/net/http/server.go:2042 +0x44
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc00010e000, 0x13a7320, 0xc0003dae00, 0xc00011c500)
+        /Users/nh/Documents/go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0xd3
+net/http.serverHandler.ServeHTTP(0xc000112000, 0x13a7320, 0xc0003dae00, 0xc00011c500)
+        /usr/local/Cellar/go/1.15.5/libexec/src/net/http/server.go:2843 +0xa3
+net/http.(*conn).serve(0xc0000bd680, 0x13a78e0, 0xc0000cc780)
+        /usr/local/Cellar/go/1.15.5/libexec/src/net/http/server.go:1925 +0x8ad
+created by net/http.(*Server).Serve
+        /usr/local/Cellar/go/1.15.5/libexec/src/net/http/server.go:2969 +0x36c
+2022/05/28 19:38:16 http: panic serving [::1]:62648: json: cannot unmarshal object into Go struct field Question.records.question of type string
+goroutine 26 [running]:
+net/http.(*conn).serve.func1(0xc0000bd720)
+        /usr/local/Cellar/go/1.15.5/libexec/src/net/http/server.go:1801 +0x147
+panic(0x12e8060, 0xc0003f1860)
+        /usr/local/Cellar/go/1.15.5/libexec/src/runtime/panic.go:975 +0x47a
+main.getQuestions(0x13a7320, 0xc0003daee0, 0xc0001b8800)
+        /Users/nh/Documents/biprogy/icebreak-api/main.go:64 +0x75e
+net/http.HandlerFunc.ServeHTTP(0x1359ac8, 0x13a7320, 0xc0003daee0, 0xc0001b8800)
+        /usr/local/Cellar/go/1.15.5/libexec/src/net/http/server.go:2042 +0x44
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc00010e000, 0x13a7320, 0xc0003daee0, 0xc00011c600)
+        /Users/nh/Documents/go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0xd3
+net/http.serverHandler.ServeHTTP(0xc000112000, 0x13a7320, 0xc0003daee0, 0xc00011c600)
+        /usr/local/Cellar/go/1.15.5/libexec/src/net/http/server.go:2843 +0xa3
+net/http.(*conn).serve(0xc0000bd720, 0x13a78e0, 0xc0000cc840)
+        /usr/local/Cellar/go/1.15.5/libexec/src/net/http/server.go:1925 +0x8ad
+created by net/http.(*Server).Serve
+        /usr/local/Cellar/go/1.15.5/libexec/src/net/http/server.go:2969 +0x36c

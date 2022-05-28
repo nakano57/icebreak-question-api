@@ -15,14 +15,14 @@ import (
 
 var token string
 
-type Root struct {
-	Records []Question
+type Records struct {
+	Records []*Question `json:"records"`
 }
 
 type Question struct {
-	Question string
-	Category string
-	Choices  *Choices
+	Question string   `json:"question"`
+	Category string   `json:"category"`
+	Choices  *Choices `json:"choices"`
 }
 
 type Choices struct {
@@ -30,7 +30,8 @@ type Choices struct {
 	Second string `json:"second"`
 }
 
-var q []Question
+var qs interface{}
+var q Records
 
 type Parameters struct {
 }
@@ -53,19 +54,37 @@ func getQuestions(w http.ResponseWriter, r *http.Request) {
 	defer resp.Body.Close()
 
 	response, _ := ioutil.ReadAll(resp.Body)
+	fmt.Println("レスポンス")
 	fmt.Println(string(response))
 
-	w.Header().Set("Content-Type", "application/json;charset=UTF-8")
-
-	//json.Unmarshal(response, &q)
 	//うまくいかない
-	// if err := json.Unmarshal(response, &q); err != nil {
-	// 	panic(err)
-	// }
-	// qs := dproxy.New(q).M("records")
-	// fmt.Println(qs)
-	//fmt.Println(err)
-	json.NewEncoder(w).Encode(q)
+	if err := json.Unmarshal([]byte(response), &qs); err != nil {
+		panic(err)
+	}
+
+	//fmt.Println(qs["records"])
+	mapData := qs.(map[string]interface{})
+	delete(mapData, "totalCount")
+
+	jsonStr2, err := json.Marshal(mapData)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println("Totalcount削除")
+	fmt.Println(string(jsonStr2))
+
+	qs3 := make([]*Question, 0)
+
+	//うまくいかない
+	if err := json.Unmarshal([]byte(jsonStr2), &qs3); err != nil {
+		panic(err)
+	}
+
+	fmt.Println(qs3)
+
+	w.Header().Set("Content-Type", "application/json;charset=UTF-8")
+	json.NewEncoder(w).Encode(qs3)
 }
 
 func main() {
@@ -83,8 +102,8 @@ func main() {
 	r := mux.NewRouter()
 
 	//テストデータ
-	root := Question{Question: "元気ですかーッ！", Category: "体調", Choices: &Choices{First: "元気です", Second: "めっちゃ元気です!!!!!!"}}
-	q = append(q, root)
+	//root := Question{Question: "元気ですかーッ！", Category: "体調", Choices: &Choices{First: "元気です", Second: "めっちゃ元気です!!!!!!"}}
+	//q = append(q, root)
 
 	// ルート(エンドポイント)
 	r.HandleFunc("/api/random", getQuestions).Methods("GET")
