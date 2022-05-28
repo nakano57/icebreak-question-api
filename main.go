@@ -11,7 +11,6 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
-	"github.com/koron/go-dproxy"
 )
 
 var token string
@@ -31,7 +30,7 @@ type Choices struct {
 	Second string `json:"second"`
 }
 
-var q interface{}
+var q []Question
 
 type Parameters struct {
 }
@@ -60,13 +59,13 @@ func getQuestions(w http.ResponseWriter, r *http.Request) {
 
 	//json.Unmarshal(response, &q)
 	//うまくいかない
-	if err := json.Unmarshal(response, &q); err != nil {
-		panic(err)
-	}
-	qs := dproxy.New(q).M("records")
-	fmt.Println(qs)
+	// if err := json.Unmarshal(response, &q); err != nil {
+	// 	panic(err)
+	// }
+	// qs := dproxy.New(q).M("records")
+	// fmt.Println(qs)
 	//fmt.Println(err)
-	json.NewEncoder(w).Encode(qs)
+	json.NewEncoder(w).Encode(q)
 }
 
 func main() {
@@ -84,7 +83,8 @@ func main() {
 	r := mux.NewRouter()
 
 	//テストデータ
-	//q = append(q, Question{QUESTION: "元気ですかーッ！", CATEGORY: "体調", CHOICES: &Choices{First: "元気です", Second: "めっちゃ元気です!!!!!!"}})
+	root := Question{Question: "元気ですかーッ！", Category: "体調", Choices: &Choices{First: "元気です", Second: "めっちゃ元気です!!!!!!"}}
+	q = append(q, root)
 
 	// ルート(エンドポイント)
 	r.HandleFunc("/api/random", getQuestions).Methods("GET")
