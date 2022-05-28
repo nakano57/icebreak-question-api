@@ -50,6 +50,9 @@ func getQuestions(w http.ResponseWriter, r *http.Request) {
 	q.Choices.Second = string(question.Fields["second"].(kintone.SingleLineTextField))
 
 	w.Header().Set("Content-Type", "application/json;charset=UTF-8")
+	w.Header().Set("Access-Control-Allow-Headers", "*")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
 	json.NewEncoder(w).Encode(q)
 }
 
