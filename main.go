@@ -11,27 +11,17 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
+	"github.com/kintone-labs/go-kintone"
 )
 
 var token string
 
-type Records struct {
-	Records []*Question `json:"records"`
+app := &kintone.App{
+	Domain:   "out8j59wrrrm.cybozu.com",
+	User:     "user1",
+	Password: "password",
+	AppId:    25,
 }
-
-type Question struct {
-	Question string   `json:"question"`
-	Category string   `json:"category"`
-	Choices  *Choices `json:"choices"`
-}
-
-type Choices struct {
-	First  string `json:"first"`
-	Second string `json:"second"`
-}
-
-var qs interface{}
-var q Records
 
 type Parameters struct {
 }
